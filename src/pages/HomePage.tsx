@@ -1,88 +1,299 @@
-import { ArrowRight, BookOpen, Bookmark, Flame, Languages, Search, Sparkles } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import {
+  ArrowRight,
+  Bookmark,
+  BookmarkCheck,
+  BookOpen,
+  CalendarDays,
+  CheckCircle2,
+  Search,
+  Sparkles,
+  XCircle,
+} from 'lucide-react'
+import { useMemo, useState, type CSSProperties, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { DICTIONARY } from '../data/dictionary'
-import { LANGUAGES, languageName } from '../data/languages'
+import { DICTIONARY, ENTRY_COUNT_BY_LANGUAGE } from '../data/dictionary'
+import { DICTIONARY_LANGUAGES, languageName } from '../data/languages'
+import { searchEntries } from '../lib/search'
 import { useAppStore } from '../store/useAppStore'
-import { WordCard } from '../components/WordCard'
+import type { DictionaryEntry } from '../types'
+
+const LANGUAGE_CLASS: Record<string, string> = {
+  yo: 'language-tile--yo',
+  ha: 'language-tile--ha',
+  ig: 'language-tile--ig',
+  pcm: 'language-tile--pcm',
+}
+
+function firstEntryFor(language: string) {
+  return DICTIONARY.find((entry) => entry.language === language)
+}
 
 export function HomePage() {
-  const { t } = useTranslation()
   const navigate = useNavigate()
   const favorites = useAppStore((state) => state.favorites)
+  const history = useAppStore((state) => state.history)
   const progress = useAppStore((state) => state.progress)
+  const toggleFavorite = useAppStore((state) => state.toggleFavorite)
+  const addHistory = useAppStore((state) => state.addHistory)
+  const recordAnswer = useAppStore((state) => state.recordAnswer)
+
   const [query, setQuery] = useState('')
+  const [language, setLanguage] = useState('all')
+  const [quizOffset, setQuizOffset] = useState(0)
+  const [quickSelected, setQuickSelected] = useState('')
+  const [quickChecked, setQuickChecked] = useState(false)
+
   const dayIndex = Math.floor(Date.now() / 86400000) % DICTIONARY.length
   const dailyWord = DICTIONARY[dayIndex]
+  const quizWord = DICTIONARY[(dayIndex + 17 + quizOffset) % DICTIONARY.length]
   const accuracy = progress.reviewed ? Math.round((progress.correct / progress.reviewed) * 100) : 0
+
+  const defaultPreview = useMemo(
+    () => DICTIONARY_LANGUAGES.map((item) => firstEntryFor(item.code)).filter(Boolean) as DictionaryEntry[],
+    [],
+  )
+
+  const liveResults = useMemo(() => {
+    const pool = language === 'all' ? DICTIONARY : DICTIONARY.filter((entry) => entry.language === language)
+    if (!query.trim()) {
+      return language === 'all' ? defaultPreview : pool.slice(0, 4)
+    }
+    return searchEntries(pool, query).slice(0, 4)
+  }, [defaultPreview, language, query])
+
+  const quickOptions = useMemo(() => {
+    const values = [quizWord.translation]
+    for (let step = 1; values.length < 4 && step < DICTIONARY.length; step += 1) {
+      const candidate = DICTIONARY[(dayIndex + 17 + quizOffset + step) % DICTIONARY.length].translation
+      if (!values.includes(candidate)) values.push(candidate)
+    }
+    return values.sort((a, b) => a.localeCompare(b))
+  }, [dayIndex, quizOffset, quizWord.translation])
+
+  const favouriteEntries = favorites
+    .map((id) => DICTIONARY.find((entry) => entry.id === id))
+    .filter(Boolean)
+    .slice(0, 5) as DictionaryEntry[]
+
+  const recentEntries = history
+    .map((id) => DICTIONARY.find((entry) => entry.id === id))
+    .filter(Boolean)
+    .slice(0, 5) as DictionaryEntry[]
 
   const submit = (event: FormEvent) => {
     event.preventDefault()
-    if (query.trim()) navigate(`/dictionary?q=${encodeURIComponent(query.trim())}`)
+    const params = new URLSearchParams()
+    if (query.trim()) params.set('q', query.trim())
+    if (language !== 'all') params.set('lang', language)
+    navigate(`/dictionary${params.toString() ? `?${params.toString()}` : ''}`)
+  }
+
+  const checkQuickAnswer = () => {
+    if (!quickSelected || quickChecked) return
+    recordAnswer(quickSelected === quizWord.translation)
+    setQuickChecked(true)
+  }
+
+  const nextQuickQuestion = () => {
+    setQuizOffset((value) => value + 1)
+    setQuickSelected('')
+    setQuickChecked(false)
   }
 
   return (
-    <div className="page-stack">
-      <section className="hero-panel">
-        <div className="hero-copy">
-          <span className="pill"><Sparkles size={15} /> Built for Nigeria's languages</span>
-          <h1>Learn the words that connect us.</h1>
-          <p>Search, save and practise everyday expressions across Yorùbá, Hausa, Igbo and Nigerian Pidgin — with a web app designed to keep working offline.</p>
-          <form className="hero-search" onSubmit={submit}>
-            <Search size={20} />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('searchPlaceholder')} />
+    <div className="dashboard-page">
+      <section className="dashboard-hero">
+        <div className="dashboard-hero__copy">
+          <span className="eyebrow eyebrow--gold"><Sparkles size={14} /> 8,000 source-backed entries</span>
+          <h1>Discover Nigerian Languages</h1>
+          <p>Search. Learn. Explore. Build practical vocabulary across YorÃ¹bÃ¡, Hausa, Igbo and Nigerian Pidgin.</p>
+
+          <form className="dashboard-search" onSubmit={submit}>
+            <Search size={21} />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search for a word, meaning or example..."
+              aria-label="Search dictionary"
+            />
+            <select value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Language filter">
+              <option value="all">All Languages</option>
+              {DICTIONARY_LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.nativeName}</option>)}
+            </select>
             <button type="submit">Search</button>
           </form>
-          <div className="language-chips">
-            {LANGUAGES.filter((language) => language.code !== 'en').map((language) => (
-              <button key={language.code} onClick={() => navigate(`/dictionary?lang=${language.code}`)}>{language.nativeName}</button>
+
+          <div className="popular-searches">
+            <span>Popular searches:</span>
+            {defaultPreview.slice(0, 4).map((entry) => (
+              <button key={entry.id} onClick={() => setQuery(entry.term)}>{entry.term}</button>
             ))}
           </div>
         </div>
-        <div className="hero-visual" aria-hidden="true">
-          <div className="language-orbit orbit-1">Ẹ káàárọ̀</div>
-          <div className="language-orbit orbit-2">Sannu</div>
-          <div className="language-orbit orbit-3">Daalụ</div>
-          <div className="language-orbit orbit-4">How you dey?</div>
-          <div className="hero-logo">LN</div>
+
+        <div className="dashboard-hero__statement" aria-label="LexiNaija purpose">
+          <strong>Languages</strong>
+          <span>People</span>
+          <span>Culture</span>
+          <span>A stronger Naija</span>
+          <i />
         </div>
       </section>
 
-      <section className="stats-grid">
-        <div className="stat-card"><BookOpen size={21} /><div><strong>{DICTIONARY.length}</strong><span>dictionary entries</span></div></div>
-        <div className="stat-card"><Languages size={21} /><div><strong>4</strong><span>Nigerian languages</span></div></div>
-        <div className="stat-card"><Bookmark size={21} /><div><strong>{favorites.length}</strong><span>{t('savedWords')}</span></div></div>
-        <div className="stat-card"><Flame size={21} /><div><strong>{progress.streak}</strong><span>day streak · {accuracy}% accuracy</span></div></div>
+      <section className="language-strip" aria-label="Browse by language">
+        {DICTIONARY_LANGUAGES.map((item) => (
+          <button
+            key={item.code}
+            className={`language-tile ${LANGUAGE_CLASS[item.code] ?? ''}`}
+            onClick={() => navigate(`/dictionary?lang=${item.code}`)}
+          >
+            <span className="language-tile__short">{item.short}</span>
+            <div>
+              <strong>{item.nativeName}</strong>
+              <small>{ENTRY_COUNT_BY_LANGUAGE[item.code] ?? 0} entries</small>
+            </div>
+            <ArrowRight size={18} />
+          </button>
+        ))}
       </section>
 
-      <section className="section-grid section-grid--wide">
-        <div>
-          <div className="section-heading">
-            <div><span className="eyebrow">{t('wordOfDay')}</span><h2>Learn one useful word today.</h2></div>
-            <Link to="/dictionary" className="text-link">{t('explore')} <ArrowRight size={16} /></Link>
+      <section className="dashboard-grid">
+        <div className="dashboard-results panel">
+          <div className="panel-heading">
+            <div>
+              <span className="eyebrow">Dictionary Results</span>
+              <h2>{query.trim() ? `Results for â€œ${query.trim()}â€` : 'Explore the dictionary'}</h2>
+            </div>
+            <Link to={query.trim() ? `/dictionary?q=${encodeURIComponent(query.trim())}` : '/dictionary'} className="text-link">
+              See all results <ArrowRight size={15} />
+            </Link>
           </div>
-          <WordCard entry={dailyWord} />
-        </div>
-        <aside className="panel focus-panel">
-          <span className="eyebrow">Your learning</span>
-          <h3>Small steps, useful language.</h3>
-          <div className="progress-ring"><strong>{accuracy}%</strong><span>quiz accuracy</span></div>
-          <div className="mini-metrics"><div><strong>{progress.reviewed}</strong><span>reviewed</span></div><div><strong>{progress.streak}</strong><span>streak</span></div></div>
-          <Link to="/learn" className="primary-button">{t('studyNow')} <ArrowRight size={17} /></Link>
-        </aside>
-      </section>
 
-      <section>
-        <div className="section-heading"><div><span className="eyebrow">Discover</span><h2>Browse by language</h2></div></div>
-        <div className="language-grid">
-          {LANGUAGES.filter((language) => language.code !== 'en').map((language) => {
-            const count = DICTIONARY.filter((entry) => entry.language === language.code).length
-            return <Link key={language.code} to={`/dictionary?lang=${language.code}`} className="language-card"><span>{language.short}</span><div><strong>{language.nativeName}</strong><small>{language.name} · {count} entries</small></div><ArrowRight size={18} /></Link>
-          })}
+          <div className="result-list">
+            {liveResults.length ? liveResults.map((entry) => {
+              const saved = favorites.includes(entry.id)
+              return (
+                <article className="result-row" key={entry.id} onClick={() => addHistory(entry.id)}>
+                  <div className="result-row__main">
+                    <div className="result-row__title">
+                      <h3>{entry.term}</h3>
+                      <span className={`language-badge language-badge--${entry.language}`}>{languageName(entry.language)}</span>
+                      {entry.partOfSpeech && <span className="part-badge">{entry.partOfSpeech}</span>}
+                    </div>
+                    <p>{entry.translation}</p>
+                    {(entry.example || entry.exampleTranslation) && (
+                      <small>{[entry.example, entry.exampleTranslation].filter(Boolean).join(' â€” ')}</small>
+                    )}
+                  </div>
+                  <div className="result-row__source">
+                    <span>Source</span>
+                    <a href={entry.sourceUrl} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>{entry.source}</a>
+                  </div>
+                  <button
+                    className="save-icon"
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      toggleFavorite(entry.id)
+                    }}
+                    aria-label={saved ? 'Remove favourite' : 'Save favourite'}
+                  >
+                    {saved ? <BookmarkCheck size={19} /> : <Bookmark size={19} />}
+                  </button>
+                </article>
+              )
+            }) : (
+              <div className="compact-empty"><Search size={26} /><span>No matching entries yet.</span></div>
+            )}
+          </div>
         </div>
+
+        <div className="dashboard-middle">
+          <article className="panel dashboard-card word-day-card">
+            <div className="dashboard-card__head">
+              <span><CalendarDays size={17} /> Word of the Day</span>
+              <small>{new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</small>
+            </div>
+            <h2>{dailyWord.term}</h2>
+            <div className="tag-row">
+              <span className={`language-badge language-badge--${dailyWord.language}`}>{languageName(dailyWord.language)}</span>
+              {dailyWord.partOfSpeech && <span className="part-badge">{dailyWord.partOfSpeech}</span>}
+            </div>
+            <p>{dailyWord.translation}</p>
+            {(dailyWord.example || dailyWord.exampleTranslation) && <small>{[dailyWord.example, dailyWord.exampleTranslation].filter(Boolean).join(' â€” ')}</small>}
+            <div className="source-line"><span>Source:</span><a href={dailyWord.sourceUrl} target="_blank" rel="noreferrer">{dailyWord.source}</a></div>
+            <button className="primary-button" onClick={() => toggleFavorite(dailyWord.id)}>
+              {favorites.includes(dailyWord.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
+              {favorites.includes(dailyWord.id) ? 'Saved' : 'Save Word'}
+            </button>
+          </article>
+
+          <article className="panel dashboard-card quick-quiz-card">
+            <div className="dashboard-card__head">
+              <span><BookOpen size={17} /> Quick Quiz</span>
+              <small>{languageName(quizWord.language)}</small>
+            </div>
+            <p className="quiz-question">What is the meaning of <strong>â€œ{quizWord.term}â€</strong>?</p>
+            <div className="quick-options">
+              {quickOptions.map((option) => {
+                const correct = quickChecked && option === quizWord.translation
+                const wrong = quickChecked && option === quickSelected && option !== quizWord.translation
+                return (
+                  <button
+                    key={option}
+                    className={`${quickSelected === option ? 'selected' : ''} ${correct ? 'correct' : ''} ${wrong ? 'wrong' : ''}`}
+                    onClick={() => !quickChecked && setQuickSelected(option)}
+                  >
+                    <span>{option}</span>
+                    {correct && <CheckCircle2 size={17} />}
+                    {wrong && <XCircle size={17} />}
+                  </button>
+                )
+              })}
+            </div>
+            <div className="quick-quiz-actions">
+              {quickChecked ? (
+                <button className="primary-button" onClick={nextQuickQuestion}>Next question</button>
+              ) : (
+                <button className="primary-button" disabled={!quickSelected} onClick={checkQuickAnswer}>Submit answer</button>
+              )}
+              <Link to="/quiz" className="text-link">Full quiz <ArrowRight size={14} /></Link>
+            </div>
+          </article>
+        </div>
+
+        <aside className="dashboard-side">
+          <article className="panel dashboard-card progress-card">
+            <span className="eyebrow">My Learning Progress</span>
+            <div className="dashboard-progress-ring" style={{ '--progress': `${Math.max(accuracy, 2)}%` } as CSSProperties}>
+              <div><strong>{accuracy}%</strong><span>Accuracy</span></div>
+            </div>
+            <div className="progress-mini-list">
+              <div><span>Reviewed</span><strong>{progress.reviewed}</strong></div>
+              <div><span>Correct</span><strong>{progress.correct}</strong></div>
+              <div><span>Streak</span><strong>{progress.streak} days</strong></div>
+            </div>
+            <Link to="/progress" className="secondary-button">View Detailed Progress <ArrowRight size={15} /></Link>
+          </article>
+
+          <article className="panel dashboard-card mini-list-card">
+            <div className="dashboard-card__head"><span>My Favourites ({favorites.length})</span><Link to="/saved">See all</Link></div>
+            {favouriteEntries.length ? favouriteEntries.map((entry) => (
+              <Link className="mini-entry" key={entry.id} to={`/dictionary?q=${encodeURIComponent(entry.term)}`}>
+                <strong>{entry.term}</strong><span>{languageName(entry.language)}</span><Bookmark size={14} />
+              </Link>
+            )) : <p className="muted mini-empty">Save words from the dictionary and they will appear here.</p>}
+          </article>
+
+          <article className="panel dashboard-card mini-list-card">
+            <div className="dashboard-card__head"><span>Recent Searches</span><Link to="/history">See all</Link></div>
+            {recentEntries.length ? recentEntries.map((entry) => (
+              <Link className="mini-entry" key={entry.id} to={`/dictionary?q=${encodeURIComponent(entry.term)}`}>
+                <strong>{entry.term}</strong><span>{languageName(entry.language)}</span><Search size={14} />
+              </Link>
+            )) : <p className="muted mini-empty">Recent dictionary activity will appear here.</p>}
+          </article>
+        </aside>
       </section>
     </div>
   )
 }
-

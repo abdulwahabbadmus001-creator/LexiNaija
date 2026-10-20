@@ -1,7 +1,7 @@
-# LinguaNaija
+# LexiNaija
 
 <p align="center">
-  <img src="./public/linguanaija-logo.svg" alt="LinguaNaija logo" width="520" />
+  <img src="./public/lexinaija-logo.svg" alt="LexiNaija logo" width="520" />
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/PWA-Offline_First-5A0FC8?logo=pwa&logoColor=white" alt="PWA" />
 </p>
 
-**LinguaNaija** is an offline-first Nigerian language dictionary and learning web application built to make Nigerian languages easier to discover, study and use in digital environments.
+**LexiNaija** is an offline-first Nigerian language dictionary and learning web application built to make Nigerian languages easier to discover, study and use in digital environments.
 
 The current release contains **8,000 source-backed entries** across four languages:
 
@@ -27,39 +27,39 @@ The current release contains **8,000 source-backed entries** across four languag
 | Nigerian Pidgin | `pcm` | 2,000 |
 | **Total** |  | **8,000** |
 
-## Why I built LinguaNaija
+## Why I built LexiNaija
 
-I built LinguaNaija from a broader concern about **language, access and digital inclusion**.
+I built LexiNaija from a broader concern about **language, access and digital inclusion**.
 
 A language can be widely spoken in everyday life and still remain comparatively difficult to use in digital products. Search systems, educational tools, datasets, speech technologies and other language technologies depend on structured digital resources. When those resources are limited, fragmented, difficult to discover or poorly validated, building useful technology for the language becomes harder.
 
 UNESCO has long argued that multilingual access to cyberspace requires the creation and processing of educational, cultural and scientific content in local and indigenous languages. Its work on multilingualism also treats language access as part of participation in digital knowledge societies. Masakhane, an African NLP research community, similarly identifies limited resources, poor discoverability, weak benchmarking and reproducibility as recurring constraints in African-language technology.
 
-LinguaNaija is my attempt to work on one small but practical part of that problem: **making trustworthy Nigerian-language lexical resources easier to access through a usable, source-aware and offline-capable product**.
+LexiNaija is my attempt to work on one small but practical part of that problem: **making trustworthy Nigerian-language lexical resources easier to access through a usable, source-aware and offline-capable product**.
 
 This project is therefore not only a dictionary interface. It is an experiment in how language data can be collected from open sources, attributed properly, validated systematically and turned into a product that remains useful under real connectivity constraints.
 
-## The problem LinguaNaija is addressing
+## The problem LexiNaija is addressing
 
-LinguaNaija is currently focused on five connected problems.
+LexiNaija is currently focused on five connected problems.
 
 ### 1. Limited digital representation
 
 Many African languages have less structured and easily reusable digital language data than dominant global languages. This affects the development of dictionaries, search systems, educational software, NLP tools and language-learning products.
 
-LinguaNaija contributes at the lexical-resource level by assembling source-backed terms and meanings into a consistent, searchable structure.
+LexiNaija contributes at the lexical-resource level by assembling source-backed terms and meanings into a consistent, searchable structure.
 
 ### 2. Fragmented language resources
 
 Useful datasets often exist across different repositories, projects and formats. A developer or learner may have to search several sources before finding reusable material.
 
-LinguaNaija normalises selected open resources into one common schema while preserving the original source and licence information for each record.
+LexiNaija normalises selected open resources into one common schema while preserving the original source and licence information for each record.
 
 ### 3. Data quality and provenance
 
 A large dictionary is not useful if its entries are fabricated, duplicated or impossible to trace.
 
-For that reason, LinguaNaija's dataset pipeline does **not** create filler words or generate translations to reach a numerical target. If a language cannot provide enough qualifying entries from verified sources, the build fails.
+For that reason, LexiNaija's dataset pipeline does **not** create filler words or generate translations to reach a numerical target. If a language cannot provide enough qualifying entries from verified sources, the build fails.
 
 ### 4. Connectivity and access
 
@@ -75,13 +75,13 @@ During development, synthetic speech models were tested for Nigerian languages. 
 
 ## Research context
 
-LinguaNaija sits within a wider discussion about multilingualism, low-resource languages and digital participation.
+LexiNaija sits within a wider discussion about multilingualism, low-resource languages and digital participation.
 
 UNESCO's **Recommendation concerning the Promotion and Use of Multilingualism and Universal Access to Cyberspace** calls for the development of multilingual digital content and systems, including local and indigenous content. UNESCO's continuing work on multilingualism and linguistic diversity also links language representation online with broader digital inclusion.
 
 African NLP initiatives such as **Masakhane** have documented another side of the problem: African-language research is often constrained by low-resource conditions, fragmented datasets, limited discoverability and weak reproducibility. These issues matter not only for academic research but also for developers trying to build practical tools for African users.
 
-LinguaNaija does not claim to solve the entire African-language technology gap. Its current contribution is deliberately narrower: create a transparent, reproducible and usable Nigerian-language dictionary layer that can be improved over time.
+LexiNaija does not claim to solve the entire African-language technology gap. Its current contribution is deliberately narrower: create a transparent, reproducible and usable Nigerian-language dictionary layer that can be improved over time.
 
 ### Selected background references
 
@@ -143,7 +143,7 @@ The four generated dictionary files committed under `src/data/dictionary/` are t
 
 ## Data integrity and methodology
 
-LinguaNaija does **not** fabricate dictionary words or translations to satisfy a target count.
+LexiNaija does **not** fabricate dictionary words or translations to satisfy a target count.
 
 The dataset builder:
 
@@ -221,7 +221,7 @@ As the dataset grows beyond 8,000 entries, the project will need stronger local 
 
 ### 6. Language-data API and reuse
 
-A later phase can expose carefully structured LinguaNaija data through an API so that cultural, educational and research products can reuse the same source-aware language layer instead of rebuilding separate dictionaries.
+A later phase can expose carefully structured LexiNaija data through an API so that cultural, educational and research products can reuse the same source-aware language layer instead of rebuilding separate dictionaries.
 
 Any API work will retain the same provenance and licensing requirements as the application itself.
 
@@ -262,10 +262,10 @@ A future contribution model should make it possible for knowledgeable speakers, 
 ## Project structure
 
 ```text
-LinguaNaija/
+LexiNaija/
 ├── public/
 │   ├── icon.svg
-│   ├── linguanaija-logo.svg
+│   ├── lexinaija-logo.svg
 │   ├── manifest.webmanifest
 │   └── sw.js
 ├── scripts/
@@ -302,8 +302,8 @@ LinguaNaija/
 Clone the repository:
 
 ```bash
-git clone https://github.com/abdulwahabbadmus001-creator/LinguaNaija.git
-cd LinguaNaija
+git clone https://github.com/abdulwahabbadmus001-creator/LexiNaija.git
+cd LexiNaija
 ```
 
 Install dependencies:
@@ -337,7 +337,7 @@ npm run data:validate
 On Windows, the complete source-build and production-build workflow can also be run with:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+powershell -ExecutionPolicy Bypass -File .\BUILD_LEXINAIJA_8000.ps1
 ```
 
 The data pipeline is intentionally strict: if a source changes and the required number of qualifying entries cannot be obtained, generation stops instead of creating replacements.
@@ -385,7 +385,7 @@ The Netlify configuration also includes the single-page application redirect req
 
 ## Offline behaviour
 
-LinguaNaija is designed to keep its core dictionary and learning experience available locally.
+LexiNaija is designed to keep its core dictionary and learning experience available locally.
 
 After the application assets are loaded and cached, users can continue using core functionality such as:
 
@@ -428,4 +428,4 @@ GitHub: [@abdulwahabbadmus001-creator](https://github.com/abdulwahabbadmus001-cr
 
 ---
 
-LinguaNaija is built to make Nigerian languages easier to explore, learn and preserve through accessible digital tools.
+LexiNaija is built to make Nigerian languages easier to explore, learn and preserve through accessible digital tools.

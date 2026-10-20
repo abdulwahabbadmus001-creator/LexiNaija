@@ -1,9 +1,9 @@
-LINGUANAIJA RECOVERY / BUILD
+LEXINAIJA RECOVERY / BUILD
 ============================
 
 From the project root run:
 
-powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+powershell -ExecutionPolicy Bypass -File .\BUILD_LEXINAIJA_8000.ps1
 
 Expected validated dataset:
   yo: 2,000

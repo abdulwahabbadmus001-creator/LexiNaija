@@ -1,13 +1,13 @@
-# LinguaNaija — 8,000-entry text-first release
+# LexiNaija — 8,000-entry text-first release
 
-This is the complete project. Do not merge it with an older LinguaNaija folder.
+This is the complete project. Do not merge it with an older LexiNaija folder.
 
 ## One command
 
 Open this folder in VS Code, open PowerShell in the project root and run:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+powershell -ExecutionPolicy Bypass -File .\BUILD_LEXINAIJA_8000.ps1
 ```
 
 The script builds and validates exactly:

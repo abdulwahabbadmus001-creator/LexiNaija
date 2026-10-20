@@ -1,10 +1,12 @@
-const CACHE = 'linguanaija-offline-v5-text-8000'
+const CACHE = 'lexinaija-offline-v1-text-8000'
 const CORE = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/icon.svg',
-  '/linguanaija-logo.svg',
+  '/lexinaija-logo.svg',
+  '/assets/app.js',
+  '/assets/app.css',
 ]
 
 self.addEventListener('install', (event) => {

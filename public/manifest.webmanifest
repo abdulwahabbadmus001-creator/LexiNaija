@@ -1,11 +1,12 @@
 {
-  "name": "LinguaNaija",
-  "short_name": "LinguaNaija",
-  "description": "Offline-first Nigerian dictionary and language-learning app.",
+  "name": "LexiNaija",
+  "short_name": "LexiNaija",
+  "description": "Offline-first Nigerian dictionary and language-learning app with 8,000 source-backed entries.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f7faf8",
-  "theme_color": "#0f7a55",
+  "background_color": "#f6f7f2",
+  "theme_color": "#006c4f",
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]

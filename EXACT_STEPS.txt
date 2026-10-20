@@ -1,4 +1,4 @@
-LINGUANAIJA — 8,000-ENTRY RELEASE
+LEXINAIJA — 8,000-ENTRY RELEASE
 =================================
 
 1. Extract this ZIP to a new folder.
@@ -6,12 +6,12 @@ LINGUANAIJA — 8,000-ENTRY RELEASE
 3. Open Terminal -> New Terminal (PowerShell).
 4. Run exactly:
 
-   powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+   powershell -ExecutionPolicy Bypass -File .\BUILD_LEXINAIJA_8000.ps1
 
 5. Wait for:
 
    VALIDATION PASSED: 8,000 entries, 2,000 per language...
-   BUILD COMPLETE: LinguaNaija 8,000-entry release is ready.
+   BUILD COMPLETE: LexiNaija 8,000-entry release is ready.
 
 6. Start the app:
 
