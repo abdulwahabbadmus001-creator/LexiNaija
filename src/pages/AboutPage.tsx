@@ -11,7 +11,7 @@ export function AboutPage() {
 
       <section className="feature-grid">
         <div className="panel feature-card"><WifiOff /><h3>Offline access</h3><p>Core language data, favourites, recent activity and learning progress remain useful when connectivity is weak or unavailable.</p></div>
-        <div className="panel feature-card"><Languages /><h3>Four launch languages</h3><p>The current release provides 2,000 entries each for YorÃ¹bÃ¡, Hausa, Igbo and Nigerian Pidgin.</p></div>
+        <div className="panel feature-card"><Languages /><h3>Four launch languages</h3><p>The current release provides 2,000 entries each for Yorùbá, Hausa, Igbo and Nigerian Pidgin.</p></div>
         <div className="panel feature-card"><HeartHandshake /><h3>Source-aware preservation</h3><p>The release dataset is assembled from credited open language resources, with source and licence information retained for traceability.</p></div>
         <div className="panel feature-card"><Database /><h3>8,000 validated entries</h3><p>The build pipeline validates counts and provenance and stops instead of fabricating missing dictionary entries.</p></div>
       </section>
