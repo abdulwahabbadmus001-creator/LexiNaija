@@ -1,5 +1,20 @@
 # LinguaNaija
 
+<p align="center">
+  <img src="./public/linguanaija-logo.svg" alt="LinguaNaija logo" width="520" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Zustand-5-433E38" alt="Zustand" />
+  <img src="https://img.shields.io/badge/i18next-25-26A69A?logo=i18next&logoColor=white" alt="i18next" />
+  <img src="https://img.shields.io/badge/React_Router-7-CA4245?logo=reactrouter&logoColor=white" alt="React Router" />
+  <img src="https://img.shields.io/badge/Netlify-Deployment-00C7B7?logo=netlify&logoColor=white" alt="Netlify" />
+  <img src="https://img.shields.io/badge/PWA-Offline_First-5A0FC8?logo=pwa&logoColor=white" alt="PWA" />
+</p>
+
 **LinguaNaija** is an offline-first Nigerian language dictionary and learning web application built with React, TypeScript and Vite.
 
 The current release contains **8,000 source-backed entries** across four Nigerian languages:
