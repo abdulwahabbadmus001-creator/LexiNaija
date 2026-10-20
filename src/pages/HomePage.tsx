@@ -10,7 +10,8 @@ import {
   XCircle,
 } from 'lucide-react'
 import { useMemo, useState, type CSSProperties, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'\nimport { useTranslation } from 'react-i18next'
+import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { DICTIONARY, ENTRY_COUNT_BY_LANGUAGE } from '../data/dictionary'
 import { DICTIONARY_LANGUAGES, languageName } from '../data/languages'
 import { searchEntries } from '../lib/search'
