@@ -1,9 +1,10 @@
-const CACHE = 'lexinaija-offline-v7-i18n-unicode'
+const CACHE = 'lexinaija-offline-v8-splash-icon'
 const CORE = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/icon.svg',
+  '/icon-maskable.svg',
   '/lexinaija-logo.svg',
   '/assets/app.js',
   '/assets/app.css',
