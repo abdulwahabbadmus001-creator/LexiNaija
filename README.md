@@ -15,6 +15,11 @@
   <img src="https://img.shields.io/badge/PWA-Offline_First-5A0FC8?logo=pwa&logoColor=white" alt="PWA" />
 </p>
 
+<p align="center">
+  <strong>Live application:</strong>
+  <a href="https://lexinaija.netlify.app/">https://lexinaija.netlify.app/</a>
+</p>
+
 **LexiNaija** is an offline-first Nigerian language dictionary and learning web application built to make Nigerian languages easier to discover, study and use in digital environments.
 
 The current release contains **8,000 source-backed entries** across four languages:
@@ -368,6 +373,10 @@ dist/
 ```
 
 ## Deployment
+
+### Live deployment
+
+**Production URL:** [https://lexinaija.netlify.app/](https://lexinaija.netlify.app/)
 
 The repository includes `netlify.toml`, so Netlify can build directly from GitHub.
 
