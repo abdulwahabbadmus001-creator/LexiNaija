@@ -1,0 +1,33 @@
+LINGUANAIJA — 8,000-ENTRY RELEASE
+=================================
+
+1. Extract this ZIP to a new folder.
+2. Open that folder in VS Code.
+3. Open Terminal -> New Terminal (PowerShell).
+4. Run exactly:
+
+   powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+
+5. Wait for:
+
+   VALIDATION PASSED: 8,000 entries, 2,000 per language...
+   BUILD COMPLETE: LinguaNaija 8,000-entry release is ready.
+
+6. Start the app:
+
+   npm.cmd run dev
+
+7. Confirm the dictionary filters contain:
+   Yorùbá: 2,000
+   Hausa: 2,000
+   Igbo: 2,000
+   Nigerian Pidgin: 2,000
+   Total: 8,000
+
+IMPORTANT
+---------
+- The first build requires internet because it downloads the credited source datasets.
+- No AI-generated words/translations or filler are used.
+- Generated source attribution is stored on every entry.
+- Audio/pronunciation is intentionally excluded from this release.
+- After validation succeeds, commit src/data/dictionary/*.json to GitHub before Netlify deployment.

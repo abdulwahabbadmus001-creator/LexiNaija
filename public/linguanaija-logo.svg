@@ -1,0 +1,12 @@
+<svg width="920" height="260" viewBox="0 0 920 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="36" y1="34" x2="279" y2="231" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#064E3B"/><stop offset=".48" stop-color="#078365"/><stop offset=".78" stop-color="#0DAA95"/><stop offset="1" stop-color="#E7B84B"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="310" y1="80" x2="860" y2="196" gradientUnits="userSpaceOnUse"><stop stop-color="#073B34"/><stop offset=".58" stop-color="#087A68"/><stop offset="1" stop-color="#0DAA95"/></linearGradient>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;display=swap');.w{font-family:'Manrope','Segoe UI',sans-serif;font-size:82px;font-weight:800;letter-spacing:-4px}</style>
+  </defs>
+  <path d="M42 61C63 56 89 62 111 71C134 80 155 94 172 111C184 123 194 137 202 152C206 126 210 99 224 80C235 64 249 55 264 51C274 72 278 96 276 121C274 145 266 166 250 182C238 194 223 202 207 209L174 235L179 199C156 194 131 193 105 190C80 187 59 179 47 165C36 152 31 133 33 112C35 92 38 75 42 61ZM60 78C86 81 111 91 132 105C157 122 175 143 184 170C163 154 139 143 112 137C90 132 72 126 61 116C54 109 53 91 60 78ZM255 70C250 89 245 104 234 118C222 133 211 149 202 172C216 157 233 147 253 141C262 126 265 108 264 91C263 83 260 76 255 70Z" fill="url(#g)" fill-rule="evenodd"/>
+  <path d="M199 62C190 85 188 109 190 133C192 156 192 179 182 205M198 128C177 105 156 91 131 80M198 137C217 108 235 92 254 83" stroke="#F9FAF8" stroke-width="9" stroke-linecap="round"/>
+  <text x="310" y="165" class="w" fill="url(#tg)">LinguaNaija</text>
+</svg>

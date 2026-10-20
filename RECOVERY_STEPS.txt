@@ -1,0 +1,15 @@
+LINGUANAIJA RECOVERY / BUILD
+============================
+
+From the project root run:
+
+powershell -ExecutionPolicy Bypass -File .\BUILD_LINGUANAIJA_8000.ps1
+
+Expected validated dataset:
+  yo: 2,000
+  ha: 2,000
+  ig: 2,000
+  pcm: 2,000
+  total: 8,000
+
+Audio/pronunciation is not part of this release. Future audio integration must use separately validated native-language recordings or models.

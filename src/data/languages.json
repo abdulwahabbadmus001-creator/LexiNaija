@@ -1,0 +1,42 @@
+[
+  {
+    "code": "en",
+    "name": "English",
+    "nativeName": "English",
+    "short": "EN",
+    "role": "reference",
+    "interfaceAvailable": true
+  },
+  {
+    "code": "yo",
+    "name": "Yoruba",
+    "nativeName": "Yorùbá",
+    "short": "YO",
+    "role": "dictionary",
+    "interfaceAvailable": true
+  },
+  {
+    "code": "ha",
+    "name": "Hausa",
+    "nativeName": "Hausa",
+    "short": "HA",
+    "role": "dictionary",
+    "interfaceAvailable": true
+  },
+  {
+    "code": "ig",
+    "name": "Igbo",
+    "nativeName": "Igbo",
+    "short": "IG",
+    "role": "dictionary",
+    "interfaceAvailable": true
+  },
+  {
+    "code": "pcm",
+    "name": "Nigerian Pidgin",
+    "nativeName": "Naijá",
+    "short": "PG",
+    "role": "dictionary",
+    "interfaceAvailable": true
+  }
+]
