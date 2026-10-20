@@ -82,10 +82,10 @@ export function Layout() {
     { to: '/', label: t('home'), icon: Home },
     { to: '/dictionary', label: t('dictionary'), icon: BookOpen },
     { to: '/learn', label: t('learn'), icon: GraduationCap },
-    { to: '/quiz', label: 'Quiz', icon: BrainCircuit },
-    { to: '/saved', label: 'Favourites', icon: Bookmark },
+    { to: '/quiz', label: t('quiz'), icon: BrainCircuit },
+    { to: '/saved', label: t('favourites'), icon: Bookmark },
     { to: '/progress', label: t('progress'), icon: BarChart3 },
-    { to: '/settings', label: 'More', icon: MoreHorizontal },
+    { to: '/settings', label: t('more'), icon: MoreHorizontal },
   ]
 
   const sideNav = [
@@ -94,9 +94,9 @@ export function Layout() {
     { to: '/learn', label: t('learn'), icon: GraduationCap },
     { to: '/quiz', label: 'Quiz', icon: BrainCircuit },
     { to: '/saved', label: 'Favourites', icon: Bookmark },
-    { to: '/history', label: 'Search History', icon: Clock3 },
+    { to: '/history', label: t('searchHistory'), icon: Clock3 },
     { to: '/progress', label: t('progress'), icon: BarChart3 },
-    { to: '/offline', label: 'Offline Access', icon: online ? Wifi : WifiOff },
+    { to: '/offline', label: t('offlineAccess'), icon: online ? Wifi : WifiOff },
   ]
 
   return (
@@ -147,8 +147,8 @@ export function Layout() {
           <span className="sidebar-summary__icon"><BookOpen size={24} /></span>
           <div>
             <strong>8,000+</strong>
-            <span>Dictionary Entries</span>
-            <small>Source-backed Â· Offline-ready</small>
+            <span>{t('dictionaryEntries')}</span>
+            <small>{t('sourceBackedOfflineReady')}</small>
           </div>
         </div>
 
@@ -165,16 +165,16 @@ export function Layout() {
           <div className="status-row">
             {online ? <Wifi size={18} /> : <WifiOff size={18} />}
             <div>
-              <strong>{online ? 'Online & ready' : t('offlineReady')}</strong>
-              <span>Core dictionary, saved words and learning progress stay available locally.</span>
+              <strong>{online ? t('onlineReady') : t('offlineReady')}</strong>
+              <span>{t('coreLocal')}</span>
             </div>
           </div>
           <button className="install-button" onClick={installApp} disabled={!installPrompt}>
-            <Download size={16} /> {installPrompt ? 'Install App' : 'PWA Ready'}
+            <Download size={16} /> {installPrompt ? t('installApp') : t('pwaReady')}
           </button>
         </div>
 
-        <NavLink to="/about" className="sidebar-about">About LexiNaija</NavLink>
+        <NavLink to="/about" className="sidebar-about">{t('about')}</NavLink>
       </aside>
 
       {menuOpen && <button className="mobile-overlay" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
