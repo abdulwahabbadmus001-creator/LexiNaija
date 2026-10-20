@@ -39,7 +39,7 @@ export function ProgressPage() {
           ))}
         </div>
         <div className="progress-footer">
-          <span>{DICTIONARY.length.toLocaleString()} total entries Â· progress stored locally</span>
+          <span>{DICTIONARY.length.toLocaleString()} total entries · progress stored locally</span>
           <button className="ghost-button" onClick={resetProgress}>Reset learning progress</button>
         </div>
       </section>
