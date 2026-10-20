@@ -1,0 +1,38 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">LexiNaija maskable icon</title>
+  <desc id="desc">LexiNaija emblem centred inside the PWA maskable safe zone.</desc>
+  <rect width="512" height="512" fill="#F6F7F2"/>
+  <g transform="translate(92 92) scale(.64)">
+    <defs>
+      <linearGradient id="left" x1="82" y1="108" x2="275" y2="405" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#008B5B"/>
+        <stop offset="0.58" stop-color="#087A58"/>
+        <stop offset="1" stop-color="#00493E"/>
+      </linearGradient>
+      <linearGradient id="right" x1="278" y1="112" x2="430" y2="390" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#0EA68B"/>
+        <stop offset="1" stop-color="#005C57"/>
+      </linearGradient>
+      <linearGradient id="gold" x1="342" y1="164" x2="416" y2="355" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#F6C443"/>
+        <stop offset="1" stop-color="#D99A14"/>
+      </linearGradient>
+    </defs>
+    <circle cx="256" cy="89" r="35" fill="url(#gold)"/>
+    <path d="M76 144C76 120 88 101 108 90C142 71 177 59 209 49V238C209 270 220 292 245 307C264 319 281 334 293 352C304 369 299 389 283 402L248 430C254 401 248 383 226 374C205 365 181 363 157 360C123 357 96 346 82 326C70 309 65 285 65 257V174C65 161 69 151 76 144Z" fill="url(#left)"/>
+    <path d="M226 74C255 83 282 100 304 124C320 141 331 163 336 187C319 170 298 159 275 152C256 146 239 139 226 129V74Z" fill="#00A66A"/>
+    <path d="M281 155C302 129 331 111 366 101C388 95 409 94 427 99V316C427 337 419 353 404 363C386 375 363 379 338 381V217C322 195 304 176 281 155Z" fill="url(#right)"/>
+    <path d="M207 247C237 246 268 255 298 273C318 285 334 301 348 320" stroke="white" stroke-width="18" stroke-linecap="round"/>
+    <path d="M208 284C238 283 268 292 296 309C315 320 332 333 348 349" stroke="white" stroke-width="15" stroke-linecap="round" opacity="0.98"/>
+    <path d="M210 321C239 320 265 327 289 341C307 351 322 362 337 375" stroke="white" stroke-width="13" stroke-linecap="round" opacity="0.96"/>
+    <g fill="none" stroke="url(#gold)" stroke-width="11" stroke-linejoin="round">
+      <path d="M373 158L393 178L373 198L353 178L373 158Z"/>
+      <path d="M355 213L373 231L391 213"/>
+      <path d="M355 249L373 231L391 249"/>
+      <path d="M373 265L394 286L373 307L352 286L373 265Z"/>
+      <path d="M352 326V365"/>
+      <path d="M373 322V371"/>
+      <path d="M394 326V365"/>
+    </g>
+  </g>
+</svg>
