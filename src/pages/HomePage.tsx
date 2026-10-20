@@ -10,7 +10,7 @@ import {
   XCircle,
 } from 'lucide-react'
 import { useMemo, useState, type CSSProperties, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'\nimport { useTranslation } from 'react-i18next'
 import { DICTIONARY, ENTRY_COUNT_BY_LANGUAGE } from '../data/dictionary'
 import { DICTIONARY_LANGUAGES, languageName } from '../data/languages'
 import { searchEntries } from '../lib/search'
@@ -104,27 +104,27 @@ export function HomePage() {
     <div className="dashboard-page">
       <section className="dashboard-hero">
         <div className="dashboard-hero__copy">
-          <span className="eyebrow eyebrow--gold"><Sparkles size={14} /> 8,000 source-backed entries</span>
-          <h1>Discover Nigerian Languages</h1>
-          <p>Search. Learn. Explore. Build practical vocabulary across YorÃ¹bÃ¡, Hausa, Igbo and Nigerian Pidgin.</p>
+          <span className="eyebrow eyebrow--gold"><Sparkles size={14} /> {t('sourceBackedEntries')}</span>
+          <h1>{t('discoverNigerianLanguages')}</h1>
+          <p>{t('heroDescription')}</p>
 
           <form className="dashboard-search" onSubmit={submit}>
             <Search size={21} />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search for a word, meaning or example..."
+              placeholder={t('searchPlaceholder')}
               aria-label="Search dictionary"
             />
             <select value={language} onChange={(event) => setLanguage(event.target.value)} aria-label="Language filter">
-              <option value="all">All Languages</option>
+              <option value="all">{t('allLanguages')}</option>
               {DICTIONARY_LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.nativeName}</option>)}
             </select>
-            <button type="submit">Search</button>
+            <button type="submit">{t('search')}</button>
           </form>
 
           <div className="popular-searches">
-            <span>Popular searches:</span>
+            <span>{t('popularSearches')}</span>
             {defaultPreview.slice(0, 4).map((entry) => (
               <button key={entry.id} onClick={() => setQuery(entry.term)}>{entry.term}</button>
             ))}
@@ -132,10 +132,10 @@ export function HomePage() {
         </div>
 
         <div className="dashboard-hero__statement" aria-label="LexiNaija purpose">
-          <strong>Languages</strong>
-          <span>People</span>
-          <span>Culture</span>
-          <span>A stronger Naija</span>
+          <strong>{t('languages')}</strong>
+          <span>{t('people')}</span>
+          <span>{t('culture')}</span>
+          <span>{t('strongerNaija')}</span>
           <i />
         </div>
       </section>
@@ -150,7 +150,7 @@ export function HomePage() {
             <span className="language-tile__short">{item.short}</span>
             <div>
               <strong>{item.nativeName}</strong>
-              <small>{ENTRY_COUNT_BY_LANGUAGE[item.code] ?? 0} entries</small>
+              <small>{ENTRY_COUNT_BY_LANGUAGE[item.code] ?? 0} {t('entries')}</small>
             </div>
             <ArrowRight size={18} />
           </button>
@@ -161,11 +161,11 @@ export function HomePage() {
         <div className="dashboard-results panel">
           <div className="panel-heading">
             <div>
-              <span className="eyebrow">Dictionary Results</span>
-              <h2>{query.trim() ? `Results for â€œ${query.trim()}â€` : 'Explore the dictionary'}</h2>
+              <span className="eyebrow">{t('dictionaryResults')}</span>
+              <h2>{query.trim() ? `Results for “${query.trim()}”` : t('exploreDictionary')}</h2>
             </div>
             <Link to={query.trim() ? `/dictionary?q=${encodeURIComponent(query.trim())}` : '/dictionary'} className="text-link">
-              See all results <ArrowRight size={15} />
+              {t('seeAllResults')} <ArrowRight size={15} />
             </Link>
           </div>
 
@@ -182,11 +182,11 @@ export function HomePage() {
                     </div>
                     <p>{entry.translation}</p>
                     {(entry.example || entry.exampleTranslation) && (
-                      <small>{[entry.example, entry.exampleTranslation].filter(Boolean).join(' â€” ')}</small>
+                      <small>{[entry.example, entry.exampleTranslation].filter(Boolean).join(' — ')}</small>
                     )}
                   </div>
                   <div className="result-row__source">
-                    <span>Source</span>
+                    <span>{t('source')}</span>
                     <a href={entry.sourceUrl} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>{entry.source}</a>
                   </div>
                   <button
@@ -202,7 +202,7 @@ export function HomePage() {
                 </article>
               )
             }) : (
-              <div className="compact-empty"><Search size={26} /><span>No matching entries yet.</span></div>
+              <div className="compact-empty"><Search size={26} /><span>{t('noMatchingEntries')}</span></div>
             )}
           </div>
         </div>
@@ -210,7 +210,7 @@ export function HomePage() {
         <div className="dashboard-middle">
           <article className="panel dashboard-card word-day-card">
             <div className="dashboard-card__head">
-              <span><CalendarDays size={17} /> Word of the Day</span>
+              <span><CalendarDays size={17} /> {t('wordOfDay')}</span>
               <small>{new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</small>
             </div>
             <h2>{dailyWord.term}</h2>
@@ -220,19 +220,19 @@ export function HomePage() {
             </div>
             <p>{dailyWord.translation}</p>
             {(dailyWord.example || dailyWord.exampleTranslation) && <small>{[dailyWord.example, dailyWord.exampleTranslation].filter(Boolean).join(' â€” ')}</small>}
-            <div className="source-line"><span>Source:</span><a href={dailyWord.sourceUrl} target="_blank" rel="noreferrer">{dailyWord.source}</a></div>
+            <div className="source-line"><span>{t('source')}:</span><a href={dailyWord.sourceUrl} target="_blank" rel="noreferrer">{dailyWord.source}</a></div>
             <button className="primary-button" onClick={() => toggleFavorite(dailyWord.id)}>
               {favorites.includes(dailyWord.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
-              {favorites.includes(dailyWord.id) ? 'Saved' : 'Save Word'}
+              {favorites.includes(dailyWord.id) ? t('savedLabel') : t('saveWord')}
             </button>
           </article>
 
           <article className="panel dashboard-card quick-quiz-card">
             <div className="dashboard-card__head">
-              <span><BookOpen size={17} /> Quick Quiz</span>
+              <span><BookOpen size={17} /> {t('quickQuiz')}</span>
               <small>{languageName(quizWord.language)}</small>
             </div>
-            <p className="quiz-question">What is the meaning of <strong>â€œ{quizWord.term}â€</strong>?</p>
+            <p className="quiz-question">{t('whatMeaning')} <strong>“{quizWord.term}”</strong>?</p>
             <div className="quick-options">
               {quickOptions.map((option) => {
                 const correct = quickChecked && option === quizWord.translation
@@ -252,18 +252,18 @@ export function HomePage() {
             </div>
             <div className="quick-quiz-actions">
               {quickChecked ? (
-                <button className="primary-button" onClick={nextQuickQuestion}>Next question</button>
+                <button className="primary-button" onClick={nextQuickQuestion}>{t('nextQuestion')}</button>
               ) : (
-                <button className="primary-button" disabled={!quickSelected} onClick={checkQuickAnswer}>Submit answer</button>
+                <button className="primary-button" disabled={!quickSelected} onClick={checkQuickAnswer}>{t('submitAnswer')}</button>
               )}
-              <Link to="/quiz" className="text-link">Full quiz <ArrowRight size={14} /></Link>
+              <Link to="/quiz" className="text-link">{t('fullQuiz')} <ArrowRight size={14} /></Link>
             </div>
           </article>
         </div>
 
         <aside className="dashboard-side">
           <article className="panel dashboard-card progress-card">
-            <span className="eyebrow">My Learning Progress</span>
+            <span className="eyebrow">{t('myLearningProgress')}</span>
             <div className="dashboard-progress-ring" style={{ '--progress': `${Math.max(accuracy, 2)}%` } as CSSProperties}>
               <div><strong>{accuracy}%</strong><span>Accuracy</span></div>
             </div>
@@ -272,11 +272,11 @@ export function HomePage() {
               <div><span>Correct</span><strong>{progress.correct}</strong></div>
               <div><span>Streak</span><strong>{progress.streak} days</strong></div>
             </div>
-            <Link to="/progress" className="secondary-button">View Detailed Progress <ArrowRight size={15} /></Link>
+            <Link to="/progress" className="secondary-button">{t('viewDetailedProgress')} <ArrowRight size={15} /></Link>
           </article>
 
           <article className="panel dashboard-card mini-list-card">
-            <div className="dashboard-card__head"><span>My Favourites ({favorites.length})</span><Link to="/saved">See all</Link></div>
+            <div className="dashboard-card__head"><span>{t('myFavourites')} ({favorites.length})</span><Link to="/saved">{t('seeAll')}</Link></div>
             {favouriteEntries.length ? favouriteEntries.map((entry) => (
               <Link className="mini-entry" key={entry.id} to={`/dictionary?q=${encodeURIComponent(entry.term)}`}>
                 <strong>{entry.term}</strong><span>{languageName(entry.language)}</span><Bookmark size={14} />
@@ -285,7 +285,7 @@ export function HomePage() {
           </article>
 
           <article className="panel dashboard-card mini-list-card">
-            <div className="dashboard-card__head"><span>Recent Searches</span><Link to="/history">See all</Link></div>
+            <div className="dashboard-card__head"><span>{t('recentSearches')}</span><Link to="/history">See all</Link></div>
             {recentEntries.length ? recentEntries.map((entry) => (
               <Link className="mini-entry" key={entry.id} to={`/dictionary?q=${encodeURIComponent(entry.term)}`}>
                 <strong>{entry.term}</strong><span>{languageName(entry.language)}</span><Search size={14} />
