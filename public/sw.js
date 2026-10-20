@@ -1,4 +1,4 @@
-const CACHE = 'lexinaija-offline-v1-text-8000'
+const CACHE = 'lexinaija-offline-v7-i18n-unicode'
 const CORE = [
   '/',
   '/index.html',
