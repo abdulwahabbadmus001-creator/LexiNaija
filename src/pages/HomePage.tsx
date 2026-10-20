@@ -29,6 +29,7 @@ function firstEntryFor(language: string) {
 }
 
 export function HomePage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const favorites = useAppStore((state) => state.favorites)
   const history = useAppStore((state) => state.history)
@@ -219,7 +220,7 @@ export function HomePage() {
               {dailyWord.partOfSpeech && <span className="part-badge">{dailyWord.partOfSpeech}</span>}
             </div>
             <p>{dailyWord.translation}</p>
-            {(dailyWord.example || dailyWord.exampleTranslation) && <small>{[dailyWord.example, dailyWord.exampleTranslation].filter(Boolean).join(' â€” ')}</small>}
+            {(dailyWord.example || dailyWord.exampleTranslation) && <small>{[dailyWord.example, dailyWord.exampleTranslation].filter(Boolean).join(' — ')}</small>}
             <div className="source-line"><span>{t('source')}:</span><a href={dailyWord.sourceUrl} target="_blank" rel="noreferrer">{dailyWord.source}</a></div>
             <button className="primary-button" onClick={() => toggleFavorite(dailyWord.id)}>
               {favorites.includes(dailyWord.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
@@ -265,12 +266,12 @@ export function HomePage() {
           <article className="panel dashboard-card progress-card">
             <span className="eyebrow">{t('myLearningProgress')}</span>
             <div className="dashboard-progress-ring" style={{ '--progress': `${Math.max(accuracy, 2)}%` } as CSSProperties}>
-              <div><strong>{accuracy}%</strong><span>Accuracy</span></div>
+              <div><strong>{accuracy}%</strong><span>{t('accuracy')}</span></div>
             </div>
             <div className="progress-mini-list">
-              <div><span>Reviewed</span><strong>{progress.reviewed}</strong></div>
-              <div><span>Correct</span><strong>{progress.correct}</strong></div>
-              <div><span>Streak</span><strong>{progress.streak} days</strong></div>
+              <div><span>{t('reviewed')}</span><strong>{progress.reviewed}</strong></div>
+              <div><span>{t('correct')}</span><strong>{progress.correct}</strong></div>
+              <div><span>{t('streak')}</span><strong>{progress.streak} days</strong></div>
             </div>
             <Link to="/progress" className="secondary-button">{t('viewDetailedProgress')} <ArrowRight size={15} /></Link>
           </article>
@@ -285,7 +286,7 @@ export function HomePage() {
           </article>
 
           <article className="panel dashboard-card mini-list-card">
-            <div className="dashboard-card__head"><span>{t('recentSearches')}</span><Link to="/history">See all</Link></div>
+            <div className="dashboard-card__head"><span>{t('recentSearches')}</span><Link to="/history">{t('seeAll')}</Link></div>
             {recentEntries.length ? recentEntries.map((entry) => (
               <Link className="mini-entry" key={entry.id} to={`/dictionary?q=${encodeURIComponent(entry.term)}`}>
                 <strong>{entry.term}</strong><span>{languageName(entry.language)}</span><Search size={14} />
