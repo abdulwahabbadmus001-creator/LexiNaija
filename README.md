@@ -17,7 +17,7 @@
 
 <p align="center">
   <strong>Live application:</strong>
-  <b<a href="https://lexinaija.netlify.app">>https://lexinaija.netlify.app</a></b>
+  <b<a href="https://lexinaija.netlify.app">https://lexinaija.netlify.app</a></b>
 </p>
 
 **LexiNaija** is an offline-first Nigerian language dictionary and learning web application built to make Nigerian languages easier to discover, study and use in digital environments.
